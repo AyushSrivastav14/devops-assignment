@@ -30,8 +30,10 @@ services:
         condition: service_healthy
 
   frontend:
-    build: ./frontend
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
+      build: ./frontend
+      ports:
+        - "80:80"
+      environment:
+        - BACKEND_HOST=backend
+      depends_on:
+        - backend

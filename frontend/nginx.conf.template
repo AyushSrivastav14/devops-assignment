@@ -1,0 +1,22 @@
+server {
+    listen 80;
+
+    # Serve the static HTML file
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
+    }
+
+    # Proxy API requests to the backend container
+    location /notify/ {
+        proxy_pass http://${BACKEND_HOST}:8000/notify/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location /task_status/ {
+        proxy_pass http://${BACKEND_HOST}:8000/task_status/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}

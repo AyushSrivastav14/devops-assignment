@@ -1,10 +1,7 @@
 FROM nginx:alpine
 
-# Remove default nginx config
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Copy custom config and the static HTML
-COPY nginx.conf /etc/nginx/conf.d/
+# Copy the HTML file
 COPY index.html /usr/share/nginx/html/
 
-EXPOSE 80
+# Copy the template file into the Nginx templates directory
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
